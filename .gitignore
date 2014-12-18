@@ -1,0 +1,7 @@
+bin
+doc
+javadocs
+META-INF
+.settings
+.classpath
+.project
