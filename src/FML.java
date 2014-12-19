@@ -4,7 +4,7 @@ import java.net.URL;
 import java.util.regex.Matcher;
 
 import com.mak001.ircBot.Bot;
-import com.mak001.ircBot.plugins.Plugin;
+import com.mak001.api.plugins.Plugin;
 
 public class FML extends Plugin {
 

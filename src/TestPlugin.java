@@ -1,9 +1,9 @@
 import com.mak001.ircBot.Boot;
 import com.mak001.ircBot.Bot;
-import com.mak001.ircBot.plugins.Command;
-import com.mak001.ircBot.plugins.Command.CommandAction;
-import com.mak001.ircBot.plugins.Plugin;
-import com.mak001.ircBot.plugins.listeners.*;
+import com.mak001.api.plugins.Command;
+import com.mak001.api.plugins.Command.CommandAction;
+import com.mak001.api.plugins.Plugin;
+import com.mak001.api.plugins.listeners.*;
 
 public class TestPlugin extends Plugin implements NickChangeListener {
 

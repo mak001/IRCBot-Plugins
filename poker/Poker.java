@@ -1,8 +1,8 @@
 import com.mak001.cards.CardTable;
 import com.mak001.ircBot.Bot;
-import com.mak001.ircBot.plugins.Manifest;
-import com.mak001.ircBot.plugins.Plugin;
-import com.mak001.ircBot.plugins.listeners.MessageListener;
+import com.mak001.api.plugins.Manifest;
+import com.mak001.api.plugins.Plugin;
+import com.mak001.api.plugins.listeners.MessageListener;
 
 @Manifest(authors = { "mak001" }, name = "POKER", description = "Allows you to play poker")
 public class Poker extends Plugin implements MessageListener {

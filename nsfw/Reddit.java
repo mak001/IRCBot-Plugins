@@ -22,8 +22,8 @@ import org.json.JSONObject;
 import com.mak001.imgurAPI.Imgur;
 import com.mak001.imgurAPI.classes.Connect.GenericConnectionException;
 import com.mak001.ircBot.Bot;
-import com.mak001.ircBot.plugins.Command;
-import com.mak001.ircBot.plugins.Command.CommandAction;
+import com.mak001.api.plugins.Command;
+import com.mak001.api.plugins.Command.CommandAction;
 import com.mak001.ircBot.settings.Settings;
 
 public class Reddit extends BasicSite {
@@ -151,6 +151,7 @@ public class Reddit extends BasicSite {
 		return data;
 	}
 
+	// TODO - remove the target
 	public JSONArray digest(HashMap<String, Object> roll_data, int trys, String target) {
 		try {
 			if (trys == 6) {

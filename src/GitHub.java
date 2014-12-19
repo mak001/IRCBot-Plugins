@@ -1,12 +1,10 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.regex.Matcher;
 
+import com.mak001.api.WebPage;
+import com.mak001.api.plugins.Manifest;
+import com.mak001.api.plugins.Plugin;
+import com.mak001.api.plugins.listeners.MessageListener;
 import com.mak001.ircBot.Bot;
-import com.mak001.ircBot.plugins.Manifest;
-import com.mak001.ircBot.plugins.Plugin;
-import com.mak001.ircBot.plugins.listeners.MessageListener;
 
 @Manifest(authors = { "mak001" }, name = "Newgrounds link analizer")
 public class GitHub extends Plugin implements MessageListener {
@@ -21,8 +19,6 @@ public class GitHub extends Plugin implements MessageListener {
 	private final String PLAYS_PATTERN = "<dd><strong>([1-9](?:\\d{0,2})(?:,\\d{3})*(?:\\.\\d*[1-9])?|0?\\.\\d*[1-9]|0)</strong>";
 	@SuppressWarnings("unused")
 	private final String NAME_PATTERN = "<title>(.*)</title>";
-
-	private BufferedReader br = null;
 
 	public GitHub(Bot bot) {
 		super(bot, "GIT");
@@ -52,43 +48,13 @@ public class GitHub extends Plugin implements MessageListener {
 	@SuppressWarnings("unused")
 	private void doBlobOutput(String link, String channel) {
 		// TODO Auto-generated method stub
-		String contents = downloadPage(link);
+		String contents = WebPage.downloadPage(link);
 	}
 
 	@SuppressWarnings("unused")
 	private void doOutput(String link, String channel) {
 		// TODO Auto-generated method stub
-		String contents = downloadPage(link);
-	}
-
-	private String downloadPage(final String link) {
-		System.out.println("Downloading page html");
-		StringBuilder s = new StringBuilder();
-		long timeOut = System.currentTimeMillis() + 1500;
-		try {
-			br = new BufferedReader(new InputStreamReader(
-					new URL(link).openStream()));
-			String line;
-			while (br != null && (line = br.readLine()) != null) {
-				if (line.isEmpty())
-					continue;
-				if (timeOut <= System.currentTimeMillis()) {
-					System.out.println("Timed out");
-					br.close();
-					br = null;
-					break;
-				}
-				s.append(line);
-			}
-			System.out.println("Done downloading page");
-			if (br != null)
-				br.close();
-			br = null;
-			return s.toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
+		String contents = WebPage.downloadPage(link);
 	}
 
 	@SuppressWarnings("unused")

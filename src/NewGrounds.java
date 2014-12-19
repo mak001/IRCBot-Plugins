@@ -1,21 +1,16 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.jibble.pircbot.Colors;
 
+import com.mak001.api.WebPage;
+import com.mak001.api.plugins.Manifest;
+import com.mak001.api.plugins.Plugin;
+import com.mak001.api.plugins.listeners.MessageListener;
 import com.mak001.ircBot.Bot;
-import com.mak001.ircBot.plugins.Manifest;
-import com.mak001.ircBot.plugins.Plugin;
-import com.mak001.ircBot.plugins.listeners.MessageListener;
 
 @Manifest(authors = { "mak001" }, name = "Newgrounds link analizer")
 public class NewGrounds extends Plugin implements MessageListener {
-
-	private BufferedReader br = null;
 
 	private final String NG_SITE = "http://www.newgrounds.com/";
 	private final String AUTHOR_PATTERN = "<em>Author <a href=\"[^>]*\">([-a-zA-Z0-9]*)</a></em>";
@@ -55,7 +50,7 @@ public class NewGrounds extends Plugin implements MessageListener {
 	}
 
 	private void doOutput(String link, String portal, String channel) {
-		String page = downloadPage(link);
+		String page = WebPage.downloadPage(link);
 		String author = "Not found";
 		String composer = "";
 		String name = "null";
@@ -111,38 +106,7 @@ public class NewGrounds extends Plugin implements MessageListener {
 					+ " -- " + ratingColor + "Rating: " + rating + "/5");
 		}
 	}
-
-	private String downloadPage(final String link) {
-		StringBuilder s = new StringBuilder();
-		long timeOut = System.currentTimeMillis() + 1500;
-		try {
-			URL url = new URL(link);
-			URLConnection connection = url.openConnection();
-			connection.setRequestProperty("User-Agent",
-					"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.0.3705; .NET CLR 1.1.4322; .NET CLR 1.2.30703)");
-
-			br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-			String line;
-			while (br != null && (line = br.readLine()) != null) {
-				if (line.isEmpty())
-					continue;
-				if (timeOut <= System.currentTimeMillis()) {
-					br.close();
-					br = null;
-					break;
-				}
-				s.append(line);
-			}
-			if (br != null)
-				br.close();
-			br = null;
-			return s.toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
+	
 	private String findExpression(Matcher matcher) {
 		String s = null;
 		while (matcher.find()) {

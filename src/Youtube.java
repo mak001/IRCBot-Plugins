@@ -1,19 +1,15 @@
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.mak001.api.WebPage;
+import com.mak001.api.plugins.Manifest;
+import com.mak001.api.plugins.Plugin;
+import com.mak001.api.plugins.listeners.MessageListener;
 import com.mak001.ircBot.Bot;
-import com.mak001.ircBot.plugins.Manifest;
-import com.mak001.ircBot.plugins.Plugin;
-import com.mak001.ircBot.plugins.listeners.*;
 import com.mak001.ircBot.settings.Settings;
 
 @Manifest(authors = { "mak001" }, name = "YouTube utility")
 public class Youtube extends Plugin implements MessageListener {
-
-	private BufferedReader br = null;
 
 	@SuppressWarnings("unused")
 	private final String WATCH_DESCRIPTION_PATTERN = "";
@@ -85,7 +81,7 @@ public class Youtube extends Plugin implements MessageListener {
 	}
 
 	private void getVideoInfo(String channel, String link) {
-		String page = downloadPage(link);
+		String page = WebPage.downloadPage(link);
 		System.out.println("Now scanning page");
 
 		String uploader = "null";
@@ -104,35 +100,6 @@ public class Youtube extends Plugin implements MessageListener {
 				+ uploader + " -- Plays: " + plays);
 		// TODO Auto-generated method stub
 
-	}
-
-	private String downloadPage(final String link) {
-		System.out.println("Downloading page html");
-		StringBuilder s = new StringBuilder();
-		long timeOut = System.currentTimeMillis() + 1500;
-		try {
-			br = new BufferedReader(new InputStreamReader(
-					new URL(link).openStream()));
-			String line;
-			while (br != null && (line = br.readLine()) != null) {
-				if (line.isEmpty())
-					continue;
-				if (timeOut <= System.currentTimeMillis()) {
-					System.out.println("Timed out");
-					br.close();
-					br = null;
-					break;
-				}
-				s.append(line);
-			}
-			System.out.println("Done downloading page");
-			br.close();
-			br = null;
-			return s.toString();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
 	}
 
 	private String findExpression(Matcher matcher) {

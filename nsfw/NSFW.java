@@ -3,10 +3,10 @@ import java.util.List;
 import java.util.Random;
 
 import com.mak001.ircBot.Bot;
-import com.mak001.ircBot.plugins.Command;
-import com.mak001.ircBot.plugins.Command.CommandAction;
-import com.mak001.ircBot.plugins.Manifest;
-import com.mak001.ircBot.plugins.Plugin;
+import com.mak001.api.plugins.Command;
+import com.mak001.api.plugins.Command.CommandAction;
+import com.mak001.api.plugins.Manifest;
+import com.mak001.api.plugins.Plugin;
 import com.mak001.ircBot.settings.Settings;
 
 @Manifest(authors = { "mak001" }, name = "NSFW", description = "Looks up images [possibly nsfw] off of subreddits and other sites")
