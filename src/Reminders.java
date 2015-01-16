@@ -145,7 +145,7 @@ public class Reminders extends Plugin {
 		public void onHelp(String channel, String sender, String login, String hostname) {
 			bot.sendMessage(sender, "Gets a reminder for the user issuing the command  : Syntax: " + prefix + "GET REMINDER [USER] <REMINDER_NUMBER>");
 		}
-	});;
+	});
 
 	private void loadReminders() throws SAXException, IOException, ParserConfigurationException {
 		System.out.println("Loading reminders xml");

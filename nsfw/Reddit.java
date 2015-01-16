@@ -19,11 +19,11 @@ import java.util.regex.Pattern;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.mak001.api.plugins.Command;
+import com.mak001.api.plugins.Command.CommandAction;
 import com.mak001.imgurAPI.Imgur;
 import com.mak001.imgurAPI.classes.Connect.GenericConnectionException;
 import com.mak001.ircBot.Bot;
-import com.mak001.api.plugins.Command;
-import com.mak001.api.plugins.Command.CommandAction;
 import com.mak001.ircBot.settings.Settings;
 
 public class Reddit extends BasicSite {
@@ -51,7 +51,9 @@ public class Reddit extends BasicSite {
 		public void onCommand(String channel, String sender, String login, String hostname, String additional) {
 			String subreddit;
 			String target = channel == null ? sender : channel;
-
+			if (additional.endsWith(" ") || additional.startsWith(" ")) {
+				additional = additional.trim();
+			}
 			if (additional != null && !additional.equals("") && !additional.contains(" ")) {
 				subreddit = additional;
 			} else {
