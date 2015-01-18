@@ -11,7 +11,7 @@ import com.mak001.ircBot.settings.Settings;
 
 @Manifest(authors = { "mak001" }, name = "NSFW", description = "Looks up images [possibly nsfw] off of subreddits and other sites")
 public class NSFW extends Plugin {
-	
+
 	private final static Random rand = new Random();
 
 	private List<BasicSite> sites = new ArrayList<BasicSite>();
@@ -42,7 +42,11 @@ public class NSFW extends Plugin {
 					bot.sendMessage(target, gelbooru.getImage(target, additional.replace(info[0] + " ", "")));
 
 				} else { // defaults to reddit
-					bot.sendMessage(target, reddit.getImage(target, additional));
+					if (additional == null || additional.equals(" ") || additional.equals("")) {
+						bot.sendMessage(target, reddit.getRandom(target));
+					} else {
+						bot.sendMessage(target, reddit.getImage(target, additional));
+					}
 				}
 
 			} else {

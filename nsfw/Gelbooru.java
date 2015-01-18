@@ -25,7 +25,7 @@ public class Gelbooru extends BasicSite {
 
 	@Override
 	public String getRandom(String target) {
-		return readXML("rating:explicit", -1, 0);
+		return TAG + readXML("rating:explicit", -1, 0);
 	}
 
 	private Command gelbooru = new Command(plugin, new String[] { "GELBOORU", "GB" }, new CommandAction() {
@@ -34,9 +34,9 @@ public class Gelbooru extends BasicSite {
 		public void onCommand(String channel, String sender, String login, String hostname, String additional) {
 			String target = channel == null ? sender : channel;
 			if (additional != null && !additional.equals("")) {
-				bot.sendMessage(target, TAG + getImage(target, additional));
+				bot.sendMessage(target, getImage(target, additional));
 			} else {
-				bot.sendMessage(target, TAG + getRandom(target));
+				bot.sendMessage(target, getRandom(target));
 			}
 		}
 
@@ -70,7 +70,7 @@ public class Gelbooru extends BasicSite {
 		if (page == -1) {
 			page = NSFW.randInt(0, 50);
 		}
-		
+
 		if (additional.startsWith(" ")) {
 			additional.replaceFirst(" ", "");
 		}
@@ -82,7 +82,7 @@ public class Gelbooru extends BasicSite {
 		}
 
 		additional.replace(" ", "+");
-		
+
 		System.out.println(SEARCH + "&tags=" + additional + "&pid=" + page + "&limit=100");
 		if (tries == 5) {
 			return "There was an error.";
@@ -95,9 +95,9 @@ public class Gelbooru extends BasicSite {
 
 				NodeList nList = doc.getElementsByTagName("post");
 				if (nList.getLength() > 2) {
-					return ((Element) getRandNode(nList)).getAttribute("file_url");
+					return TAG + ((Element) getRandNode(nList)).getAttribute("file_url");
 				} else if (nList.getLength() == 1) {
-					return ((Element) nList.item(0)).getAttribute("file_url");
+					return TAG + ((Element) nList.item(0)).getAttribute("file_url");
 				} else {
 					return "No images found";
 				}
