@@ -38,9 +38,9 @@ public class Reminders extends Plugin {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		bot.registerCommand(add_reminder);
-		bot.registerCommand(remove_reminder);
-		bot.registerCommand(get_reminder);
+		bot.getPluginManager().registerCommand(add_reminder);
+		bot.getPluginManager().registerCommand(remove_reminder);
+		bot.getPluginManager().registerCommand(get_reminder);
 	}
 
 	private Command add_reminder = new Command(this, "ADD REMINDER", new CommandAction() {

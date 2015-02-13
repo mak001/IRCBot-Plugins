@@ -106,7 +106,7 @@ public class NewGrounds extends Plugin implements MessageListener {
 					+ " -- " + ratingColor + "Rating: " + rating + "/5");
 		}
 	}
-	
+
 	private String findExpression(Matcher matcher) {
 		String s = null;
 		while (matcher.find()) {

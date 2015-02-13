@@ -18,10 +18,10 @@ public class GoFish extends Plugin implements MessageListener {
 
 	public GoFish(Bot bot) {
 		super(bot, "");
-		bot.registerCommand(startGame);
-		bot.registerCommand(joinGame);
-		bot.registerCommand(leaveGame);
-		bot.registerCommand(getCards);
+		bot.getPluginManager().registerCommand(startGame);
+		bot.getPluginManager().registerCommand(joinGame);
+		bot.getPluginManager().registerCommand(leaveGame);
+		bot.getPluginManager().registerCommand(getCards);
 	}
 
 	@Override

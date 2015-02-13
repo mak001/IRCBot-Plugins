@@ -41,8 +41,8 @@ public class Reddit extends BasicSite {
 		loadSubReddits();
 		loadLikes();
 
-		bot.registerCommand(reddit);
-		bot.registerCommand(like);
+		bot.getPluginManager().registerCommand(reddit);
+		bot.getPluginManager().registerCommand(like);
 	}
 
 	private Command reddit = new Command(plugin, "REDDIT", new CommandAction() {

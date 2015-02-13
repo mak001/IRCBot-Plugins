@@ -20,7 +20,7 @@ public class Gelbooru extends BasicSite {
 	public Gelbooru(Bot bot, NSFW plugin) {
 		super(bot, plugin, "-g");
 
-		bot.registerCommand(gelbooru);
+		bot.getPluginManager().registerCommand(gelbooru);
 	}
 
 	@Override

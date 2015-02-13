@@ -2,11 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.mak001.ircBot.Bot;
 import com.mak001.api.plugins.Command;
 import com.mak001.api.plugins.Command.CommandAction;
 import com.mak001.api.plugins.Manifest;
 import com.mak001.api.plugins.Plugin;
+import com.mak001.ircBot.Bot;
 import com.mak001.ircBot.settings.Settings;
 
 @Manifest(authors = { "mak001" }, name = "NSFW", description = "Looks up images [possibly nsfw] off of subreddits and other sites")
@@ -25,7 +25,7 @@ public class NSFW extends Plugin {
 		gelbooru = new Gelbooru(bot, this);
 		sites.add(reddit);
 		sites.add(gelbooru);
-		bot.registerCommand(nsfw);
+		bot.getPluginManager().registerCommand(nsfw);
 	}
 
 	private Command nsfw = new Command(this, "NSFW", new CommandAction() {
