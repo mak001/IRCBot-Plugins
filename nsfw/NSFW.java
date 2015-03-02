@@ -39,7 +39,7 @@ public class NSFW extends Plugin {
 					bot.sendMessage(target, reddit.getImage(target, additional.replace(info[0] + " ", "")));
 
 				} else if (info[0].equalsIgnoreCase(gelbooru.getFlag())) {
-					bot.sendMessage(target, gelbooru.getImage(target, additional.replace(info[0] + " ", "")));
+					bot.sendMessage(target, gelbooru.getTag() + gelbooru.getImage(target, additional.replace(info[0] + " ", "")));
 
 				} else { // defaults to reddit
 					if (additional == null || additional.equals(" ") || additional.equals("")) {
@@ -51,7 +51,7 @@ public class NSFW extends Plugin {
 
 			} else {
 				BasicSite site = sites.get(randInt(0, sites.size() - 1));
-				bot.sendMessage(target, site.getRandom(target));
+				bot.sendMessage(target, (site.getTag() == null) ? site.getRandom(target) : site.getTag() + site.getRandom(target));
 			}
 		}
 

@@ -5,13 +5,36 @@ public abstract class BasicSite {
 	protected final Bot bot;
 	protected final NSFW plugin;
 	protected final String flag;
+	protected final String tag;
 
+	/**
+	 * Only use this if you plan to have a dynamic tag
+	 * @param bot
+	 * @param plugin
+	 * @param flag
+	 */
 	public BasicSite(Bot bot, NSFW plugin, String flag) {
+		this(bot, plugin, flag, null);
+	}
+
+	public BasicSite(Bot bot, NSFW plugin, String flag, String tag) {
 		this.bot = bot;
 		this.plugin = plugin;
 		this.flag = flag;
+		this.tag = tag;
 	}
 
+	/**
+	 * @return The tag to put in front of all nsfw images from the site
+	 */
+	public String getTag() {
+		return tag;
+	}
+
+	/**
+	 * 
+	 * @return The flag of the site [reddit is -r, gelbooru is -g]
+	 */
 	public String getFlag() {
 		return flag;
 	}

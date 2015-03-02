@@ -14,18 +14,17 @@ import com.mak001.ircBot.Bot;
 
 public class Gelbooru extends BasicSite {
 
-	private final String TAG = "[NSFW][Gelbooru]  ";
 	private final String SEARCH = "http://gelbooru.com/index.php?page=dapi&s=post&q=index";
 
 	public Gelbooru(Bot bot, NSFW plugin) {
-		super(bot, plugin, "-g");
+		super(bot, plugin, "-g", "[NSFW][Gelbooru] ");
 
 		bot.getPluginManager().registerCommand(gelbooru);
 	}
 
 	@Override
 	public String getRandom(String target) {
-		return TAG + readXML("rating:explicit", -1, 0);
+		return readXML("rating:explicit", -1, 0);
 	}
 
 	private Command gelbooru = new Command(plugin, new String[] { "GELBOORU", "GB" }, new CommandAction() {
@@ -34,9 +33,9 @@ public class Gelbooru extends BasicSite {
 		public void onCommand(String channel, String sender, String login, String hostname, String additional) {
 			String target = channel == null ? sender : channel;
 			if (additional != null && !additional.equals("")) {
-				bot.sendMessage(target, getImage(target, additional));
+				bot.sendMessage(target, getTag() + getImage(target, additional));
 			} else {
-				bot.sendMessage(target, getRandom(target));
+				bot.sendMessage(target, getTag() + getRandom(target));
 			}
 		}
 
@@ -95,9 +94,9 @@ public class Gelbooru extends BasicSite {
 
 				NodeList nList = doc.getElementsByTagName("post");
 				if (nList.getLength() > 2) {
-					return TAG + ((Element) getRandNode(nList)).getAttribute("file_url");
+					return ((Element) getRandNode(nList)).getAttribute("file_url");
 				} else if (nList.getLength() == 1) {
-					return TAG + ((Element) nList.item(0)).getAttribute("file_url");
+					return ((Element) nList.item(0)).getAttribute("file_url");
 				} else {
 					return "No images found";
 				}
