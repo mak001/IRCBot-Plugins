@@ -3,7 +3,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.regex.Matcher;
 
-import com.mak001.ircBot.Bot;
+import com.mak001.ircbot.Bot;
 import com.mak001.api.plugins.Plugin;
 
 public class FML extends Plugin {

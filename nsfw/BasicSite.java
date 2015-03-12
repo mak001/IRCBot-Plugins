@@ -1,4 +1,4 @@
-import com.mak001.ircBot.Bot;
+import com.mak001.ircbot.Bot;
 
 public abstract class BasicSite {
 

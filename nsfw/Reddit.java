@@ -23,8 +23,8 @@ import com.mak001.api.plugins.Command;
 import com.mak001.api.plugins.Command.CommandAction;
 import com.mak001.imgurAPI.Imgur;
 import com.mak001.imgurAPI.classes.Connect.GenericConnectionException;
-import com.mak001.ircBot.Bot;
-import com.mak001.ircBot.settings.Settings;
+import com.mak001.ircbot.Bot;
+import com.mak001.ircbot.SettingsManager;
 
 public class Reddit extends BasicSite {
 
@@ -80,8 +80,8 @@ public class Reddit extends BasicSite {
 
 		@Override
 		public void onHelp(String channel, String sender, String login, String hostname) {
-			bot.sendMessage(sender, "You have to specify a subreddit to look for pictures in by using  " + Settings.COMMAND_PREFIX + "REDDIT "
-					+ "<SUBREDDIT>");
+			bot.sendMessage(sender, "You have to specify a subreddit to look for pictures in by using  " + SettingsManager.getCommandPrefix()
+					+ "REDDIT " + "<SUBREDDIT>");
 		}
 	});
 
@@ -113,7 +113,7 @@ public class Reddit extends BasicSite {
 
 		@Override
 		public void onHelp(String channel, String sender, String login, String hostname) {
-			bot.sendMessage(sender, "Likes the last image the bot posted or the designated image  " + Settings.COMMAND_PREFIX + "LIKE "
+			bot.sendMessage(sender, "Likes the last image the bot posted or the designated image  " + SettingsManager.getCommandPrefix() + "LIKE "
 					+ "<Imgur_URL or image id>");
 		}
 	});
@@ -197,7 +197,7 @@ public class Reddit extends BasicSite {
 	}
 
 	private void saveLikes() {
-		File file = new File(Settings.userHome + Settings.fileSeparator + "Settings" + Settings.fileSeparator + "reddit_likes.txt");
+		File file = new File(SettingsManager.SETTINGS_FOLDER + "reddit_likes.txt");
 		Writer writer = null;
 		try {
 			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "utf-8"));
@@ -208,7 +208,7 @@ public class Reddit extends BasicSite {
 					string = string + value + ",";
 				}
 				writer.write(string);
-				writer.write(Settings.lineSeparator);
+				writer.write(SettingsManager.LINE_SEPERATOR);
 			}
 		} catch (FileNotFoundException e) {
 			try {
@@ -229,7 +229,7 @@ public class Reddit extends BasicSite {
 
 	private void loadLikes() {
 		InputStream ips;
-		File file = new File(Settings.userHome + Settings.fileSeparator + "Settings" + Settings.fileSeparator + "reddit_likes.txt");
+		File file = new File(SettingsManager.SETTINGS_FOLDER + "reddit_likes.txt");
 		try {
 			ips = new FileInputStream(file);
 
@@ -264,8 +264,7 @@ public class Reddit extends BasicSite {
 		try {
 			imgur = new Imgur("eb6ed1f98a1783d", "d8c995f395116d94186e1d4abad6ea4e2ae66009");
 
-			InputStream ips = new FileInputStream(Settings.userHome + Settings.fileSeparator + "Settings" + Settings.fileSeparator
-					+ "subreddit_list.txt");
+			InputStream ips = new FileInputStream(SettingsManager.SETTINGS_FOLDER + "subreddit_list.txt");
 			InputStreamReader ipsr = new InputStreamReader(ips);
 			BufferedReader br = new BufferedReader(ipsr);
 			String line;

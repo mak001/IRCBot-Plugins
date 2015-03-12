@@ -5,8 +5,8 @@ import com.mak001.api.WebPage;
 import com.mak001.api.plugins.Manifest;
 import com.mak001.api.plugins.Plugin;
 import com.mak001.api.plugins.listeners.MessageListener;
-import com.mak001.ircBot.Bot;
-import com.mak001.ircBot.settings.Settings;
+import com.mak001.ircbot.Bot;
+import com.mak001.ircbot.SettingsManager;
 
 @Manifest(authors = { "mak001" }, name = "YouTube utility")
 public class Youtube extends Plugin implements MessageListener {
@@ -32,8 +32,7 @@ public class Youtube extends Plugin implements MessageListener {
 		super(bot, "YouTube");
 	}
 
-	public void onCommand(String channel, String sender, String login,
-			String hostname, String message) {
+	public void onCommand(String channel, String sender, String login, String hostname, String message) {
 		String[] s = message.split(" ");
 		int limit = -1;
 		String search = "";
@@ -63,10 +62,9 @@ public class Youtube extends Plugin implements MessageListener {
 	}
 
 	@Override
-	public void onMessage(String channel, String sender, String login,
-			String hostname, String message) {
+	public void onMessage(String channel, String sender, String login, String hostname, String message) {
 		// makes sure it isn't the bot sending a link
-		if (!sender.equals(Settings.NICK) && !sender.equals(bot.getNick())) {
+		if (!sender.equals(SettingsManager.getNick()) && !sender.equals(bot.getNick())) {
 			if (message.contains("(?i)youtube.com")) {
 				String s[] = message.split(" ");
 				for (String ss : s) {
@@ -96,8 +94,7 @@ public class Youtube extends Plugin implements MessageListener {
 		} catch (Exception e) {
 		}
 
-		bot.sendMessage(channel, "YouTube " + " -- " + name + "  uploaded by: "
-				+ uploader + " -- Plays: " + plays);
+		bot.sendMessage(channel, "YouTube " + " -- " + name + "  uploaded by: " + uploader + " -- Plays: " + plays);
 		// TODO Auto-generated method stub
 
 	}

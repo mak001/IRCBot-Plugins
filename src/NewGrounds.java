@@ -7,7 +7,7 @@ import com.mak001.api.WebPage;
 import com.mak001.api.plugins.Manifest;
 import com.mak001.api.plugins.Plugin;
 import com.mak001.api.plugins.listeners.MessageListener;
-import com.mak001.ircBot.Bot;
+import com.mak001.ircbot.Bot;
 
 @Manifest(authors = { "mak001" }, name = "Newgrounds link analizer")
 public class NewGrounds extends Plugin implements MessageListener {
@@ -98,7 +98,7 @@ public class NewGrounds extends Plugin implements MessageListener {
 			authorString = author;
 		}
 
-		if (bot.getChannelByName(channel).hasMode('c')) {
+		if (bot.getChannelByName(channel) == null || bot.getChannelByName(channel).hasMode('c')) {
 			bot.sendMessage(channel, "NG " + portal + " -- " + name + "  by: " + authorString + " -- Plays: " + plays + " -- " + "Rating: " + rating
 					+ "/5");
 		} else {

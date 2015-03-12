@@ -1,6 +1,6 @@
 import com.mak001.cards.CardTable;
 import com.mak001.cards.Cards;
-import com.mak001.ircBot.Bot;
+import com.mak001.ircbot.Bot;
 import com.mak001.api.plugins.Command;
 import com.mak001.api.plugins.Manifest;
 import com.mak001.api.plugins.Command.CommandAction;

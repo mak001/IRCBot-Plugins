@@ -6,8 +6,8 @@ import com.mak001.api.plugins.Command;
 import com.mak001.api.plugins.Command.CommandAction;
 import com.mak001.api.plugins.Manifest;
 import com.mak001.api.plugins.Plugin;
-import com.mak001.ircBot.Bot;
-import com.mak001.ircBot.settings.Settings;
+import com.mak001.ircbot.Bot;
+import com.mak001.ircbot.SettingsManager;
 
 @Manifest(authors = { "mak001" }, name = "NSFW", description = "Looks up images [possibly nsfw] off of subreddits and other sites")
 public class NSFW extends Plugin {
@@ -57,7 +57,7 @@ public class NSFW extends Plugin {
 
 		@Override
 		public void onHelp(String channel, String sender, String login, String hostname) {
-			bot.sendMessage(sender, "You may specify a subreddit to look for pictures in by using  " + Settings.COMMAND_PREFIX + "NSFW "
+			bot.sendMessage(sender, "You may specify a subreddit to look for pictures in by using  " + SettingsManager.getCommandPrefix() + "NSFW "
 					+ "<SUBREDDIT>");
 		}
 	});

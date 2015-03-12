@@ -4,7 +4,7 @@ import com.mak001.api.WebPage;
 import com.mak001.api.plugins.Manifest;
 import com.mak001.api.plugins.Plugin;
 import com.mak001.api.plugins.listeners.MessageListener;
-import com.mak001.ircBot.Bot;
+import com.mak001.ircbot.Bot;
 
 @Manifest(authors = { "mak001" }, name = "Newgrounds link analizer")
 public class GitHub extends Plugin implements MessageListener {

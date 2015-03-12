@@ -1,5 +1,5 @@
-import com.mak001.ircBot.Boot;
-import com.mak001.ircBot.Bot;
+import com.mak001.ircbot.Boot;
+import com.mak001.ircbot.Bot;
 import com.mak001.api.plugins.Command;
 import com.mak001.api.plugins.Command.CommandAction;
 import com.mak001.api.plugins.Plugin;

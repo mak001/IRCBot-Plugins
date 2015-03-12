@@ -5,7 +5,7 @@ import java.util.List;
 import com.mak001.cards.CardTable;
 import com.mak001.cards.Cards;
 import com.mak001.cards.Hand;
-import com.mak001.ircBot.Bot;
+import com.mak001.ircbot.Bot;
 
 public class GoFishPlayer extends Hand {
 

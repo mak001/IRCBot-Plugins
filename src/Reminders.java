@@ -20,16 +20,17 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.mak001.ircBot.Bot;
 import com.mak001.api.plugins.Command;
 import com.mak001.api.plugins.Command.CommandAction;
 import com.mak001.api.plugins.Plugin;
-import com.mak001.ircBot.settings.Settings;
+import com.mak001.ircbot.Bot;
+import com.mak001.ircbot.SettingsManager;
 
 public class Reminders extends Plugin {
 
-	private String prefix = Settings.get(Settings.COMMAND_PREFIX);
+	private String prefix = SettingsManager.getCommandPrefix();
 	private HashMap<String, List<String>> reminders = new HashMap<String, List<String>>();
+	private final String file_path = SettingsManager.SETTINGS_FOLDER + "reminders.xml";
 
 	public Reminders(Bot bot) {
 		super(bot, "REMINDERS");
@@ -149,7 +150,7 @@ public class Reminders extends Plugin {
 
 	private void loadReminders() throws SAXException, IOException, ParserConfigurationException {
 		System.out.println("Loading reminders xml");
-		File fXmlFile = new File(Settings.userHome + Settings.fileSeparator + "Settings" + Settings.fileSeparator + "reminders.xml");
+		File fXmlFile = new File(file_path);
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 		Document doc = dBuilder.parse(fXmlFile);
@@ -178,7 +179,7 @@ public class Reminders extends Plugin {
 	}
 
 	private void saveReminders() {
-		File fXmlFile = new File(Settings.userHome + Settings.fileSeparator + "Settings" + Settings.fileSeparator + "reminders.xml");
+		File fXmlFile = new File(file_path);
 		DocumentBuilderFactory icFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder icBuilder;
 		try {

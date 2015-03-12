@@ -10,7 +10,7 @@ import org.w3c.dom.NodeList;
 
 import com.mak001.api.plugins.Command;
 import com.mak001.api.plugins.Command.CommandAction;
-import com.mak001.ircBot.Bot;
+import com.mak001.ircbot.Bot;
 
 public class Gelbooru extends BasicSite {
 
@@ -82,7 +82,7 @@ public class Gelbooru extends BasicSite {
 
 		additional.replace(" ", "+");
 
-		System.out.println(SEARCH + "&tags=" + additional + "&pid=" + page + "&limit=100");
+		System.out.println(tries + " -- " + SEARCH + "&tags=" + additional + "&pid=" + page + "&limit=100");
 		if (tries == 5) {
 			return "There was an error.";
 		} else {
