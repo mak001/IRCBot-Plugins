@@ -24,7 +24,7 @@ public class Gelbooru extends BasicSite {
 
 	@Override
 	public String getRandom(String target) {
-		return readXML("rating:explicit", -1, 0);
+		return readXML("rating:explicit", -1, -1, 0);
 	}
 
 	private Command gelbooru = new Command(plugin, new String[] { "GELBOORU", "GB" }, new CommandAction() {
@@ -49,7 +49,7 @@ public class Gelbooru extends BasicSite {
 
 	@Override
 	public String getImage(String target, String value) {
-		return readXML(value, -1, 0);
+		return readXML(value, -1, -1, 0);
 	}
 
 	/**
@@ -63,33 +63,46 @@ public class Gelbooru extends BasicSite {
 	 * @param tries
 	 *            - The number of times the method has run recursively (Only
 	 *            input 0 when used in other methods)
+	 * @param rand_limit
+	 *            - The max amount of pages the tag has (only used after
+	 *            failing)
 	 * @return - A random image link
 	 */
-	private String readXML(String additional, int page, int tries) {
+	private String readXML(String additional, int page, int rand_limit, int tries) {
+		int _page;
 		if (page == -1) {
-			page = NSFW.randInt(0, 50);
+			if (rand_limit == -1) {
+				_page = NSFW.randInt(0, 50);
+			} else if (rand_limit == 0) {
+				_page = 0;
+			} else {
+				_page = NSFW.randInt(0, rand_limit);
+			}
+		} else {
+			_page = page;
 		}
 
 		if (additional.startsWith(" ")) {
 			additional.replaceFirst(" ", "");
 		}
 
-		if (!additional.contains("loli")) {
+		if (!additional.contains("loli") && !additional.contains("-loli")) {
 			additional = additional + "+-loli";
-		} else if (additional.contains("loli") && !additional.contains("rating:")) {
+		}
+		if (additional.contains("loli") && !additional.contains("-loli") && !additional.contains("rating:")) {
 			additional = additional + "+rating:safe";
 		}
 
 		additional.replace(" ", "+");
 
-		System.out.println(tries + " -- " + SEARCH + "&tags=" + additional + "&pid=" + page + "&limit=100");
+		System.out.println(tries + " -- " + SEARCH + "&tags=" + additional + "&pid=" + _page + "&limit=100");
 		if (tries == 5) {
 			return "There was an error.";
 		} else {
 			try {
 				DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 				DocumentBuilder db = dbf.newDocumentBuilder();
-				Document doc = db.parse(new URL(SEARCH + "&tags=" + additional + "&pid=" + page + "&limit=100").openStream());
+				Document doc = db.parse(new URL(SEARCH + "&tags=" + additional + "&pid=" + _page + "&limit=100").openStream());
 				doc.getDocumentElement().normalize();
 
 				NodeList nList = doc.getElementsByTagName("post");
@@ -98,11 +111,19 @@ public class Gelbooru extends BasicSite {
 				} else if (nList.getLength() == 1) {
 					return ((Element) nList.item(0)).getAttribute("file_url");
 				} else {
-					return "No images found";
+					int num = Integer.parseInt(doc.getDocumentElement().getAttribute("count"));
+					if (num == 0) {
+						return "No images found";
+					} else {
+
+						int lim = num / 100;
+						System.out.println("num: " + num + "  -----  lim: " + lim);
+						return readXML(additional, page, lim, tries + 1);
+					}
 				}
 			} catch (Exception e) {
 				if (tries < 5) {
-					return readXML(additional, page, tries++);
+					return readXML(additional, page, rand_limit, tries + 1);
 				}
 				e.printStackTrace();
 				return "There was an error";
